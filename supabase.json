@@ -1,0 +1,17 @@
+{
+  "project_id": "",
+  "db": {
+    "migrations": {
+      "dir": "supabase/migrations"
+    }
+  },
+  "functions": [
+    {
+      "key": "hello",
+      "file": "supabase/functions/hello",
+      "id": "hello",
+      "name": "hello",
+      "supported_operations": ["POST", "GET"]
+    }
+  ]
+}

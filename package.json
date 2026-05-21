@@ -1,0 +1,23 @@
+{
+  "name": "thehireme-backend",
+  "version": "1.0.0",
+  "description": "TheHireMe Backend - Supabase with Edge Functions",
+  "main": "index.js",
+  "scripts": {
+    "dev": "supabase start",
+    "stop": "supabase stop",
+    "db:push": "supabase db push",
+    "db:pull": "supabase db pull",
+    "seed": "supabase db execute supabase/seed.sql",
+    "functions:deploy": "supabase functions deploy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "supabase": "^1.198.0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.38.0"
+  }
+}
