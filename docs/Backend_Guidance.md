@@ -78,11 +78,27 @@ When domain is finalized:
 - **Security** — consistent CORS and origin validation across all endpoints
 - **Maintenance** — future domain changes require only environment variable updates
 
+### Development vs. Production
+
+**During Development (No Domain Yet):**
+- Allow requests from all origins (`*`)
+- Set `CORS_ALLOWED_ORIGINS: ['*']` in config
+- Allows all three apps to communicate with backend freely
+- No domain restrictions needed until domain is finalized
+
+**Production (Domain Finalized):**
+- Restrict to specific domain only
+- Set `CORS_ALLOWED_ORIGINS: [ALLOWED_DOMAIN]`
+- Validate request origins strictly
+- Only approved domains can access backend
+
 ### Security Considerations
 
+- During development: allow all origins (`*`) for flexibility
+- Once domain is chosen: switch to whitelist-specific domains only
 - Never hardcode domains in edge function code
-- Always validate request origin against config
+- Always validate request origin against config (production)
 - Use HTTPS only — enforce in config
-- Whitelist specific domains — don't allow all origins
 - Environment variables secured in Supabase dashboard
 - Regular audits of allowed domains and CORS policies
+- Update config.ts CORS_ALLOWED_ORIGINS when moving from development to production
