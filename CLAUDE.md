@@ -63,31 +63,46 @@ npm run dev
 
 Docker automatically spins up a local Supabase instance. All three apps (client, worker, admin) connect to this same local instance during development.
 
-## Environment Variables
+## Environment Variables - CRITICAL SECURITY RULE
 
-All sensitive credentials and configuration are stored in the **Supabase dashboard** as environment variables.
+**NO .env FILES ANYWHERE IN THIS PROJECT**
 
-**Access environment variables at runtime using:**
+**ALL environment variables are stored ONLY in Supabase dashboard - server-side only**
+
+### For Edge Functions - Use Deno.env.get()
+
 ```typescript
-const value = Deno.env.get('VARIABLE_NAME');
+const clerkApiKey = Deno.env.get('CLERK_API_KEY');
+const stripeSecretKey = Deno.env.get('STRIPE_SECRET_KEY');
+const supabaseUrl = Deno.env.get('SUPABASE_URL');
 ```
 
-**Never:**
-- Hardcode API keys, secrets, or configuration in code
-- Expose environment variables in URLs or logs
-- Store secrets in code files
+### Environment Variables Stored in Supabase Dashboard
 
-**Always:**
-- Use Deno.env.get() to fetch variables at runtime
-- Store all sensitive data in Supabase dashboard
-- Validate that required environment variables exist on startup
-
-**Environment variables include:**
 - Clerk API key
 - Stripe publishable/secret keys
-- Supabase URL and anon key
+- Supabase URL and service role key
 - Database connection strings
 - Third-party API keys
+- JWT secrets
+- Encryption keys
+
+### Security Rules - MANDATORY
+
+**NEVER:**
+- ❌ Create .env files in the project
+- ❌ Hardcode API keys, secrets, or configuration in code
+- ❌ Expose environment variables in URLs or logs
+- ❌ Store secrets in code files
+- ❌ Commit secrets to GitHub
+- ❌ Put environment variables in frontend code
+
+**ALWAYS:**
+- ✅ Use Deno.env.get() in edge functions to fetch variables at runtime
+- ✅ Store all sensitive data in Supabase dashboard
+- ✅ Validate that required environment variables exist on startup
+- ✅ Access secrets from Supabase server-side only
+- ✅ Never pass secrets to frontend applications
 
 ## Supabase Cost Optimization
 
