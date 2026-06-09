@@ -1,1 +1,1 @@
-select * from  services;
+select * from   users;
